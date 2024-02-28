@@ -159,8 +159,10 @@ public class TestPila {
         for (int i = 0; i < total; i++) {
             pila.mete(i);
             Assert.assertFalse(pila.equals(pila2));
+            Assert.assertFalse(pila2.equals(pila));
             pila2.mete(i);
             Assert.assertTrue(pila.equals(pila2));
+            Assert.assertTrue(pila2.equals(pila));
         }
     }
 }
