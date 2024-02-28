@@ -599,6 +599,9 @@ public class TestLista {
         for (int i = 0; i < total; i ++)
             Assert.assertTrue(i == lista.indiceDe(a[i]));
         Assert.assertTrue(lista.indiceDe(str(ini - 10)) == -1);
+        String s = lista.getPrimero();
+        String t = new String(s);
+        Assert.assertTrue(lista.indiceDe(t) == 0);
     }
 
     /**
@@ -842,7 +845,7 @@ public class TestLista {
         for (int i = 0; i < total; i++)
             lista.agregaFinal(str(random.nextInt(total)));
         lista = lista.mergeSort((a, b) -> a.compareTo(b));
-        String m = lista.get(total/2);
+        String m = new String(lista.get(total/2));
         Assert.assertTrue(lista.busquedaLineal(m, (a, b) -> a.compareTo(b)));
         String o = " ";
         Assert.assertFalse(lista.busquedaLineal(o, (a, b) -> a.compareTo(b)));
