@@ -60,6 +60,10 @@ public class Lista<T> implements Coleccion<T> {
             return tmp;
         }
 
+        public T peek(){
+            return siguiente.elemento;
+        }
+
         /* Nos dice si hay un elemento anterior. */
         @Override public boolean hasPrevious() {
             return anterior != null;
@@ -221,7 +225,7 @@ public class Lista<T> implements Coleccion<T> {
         nodo.siguiente = temp;
         temp.anterior.siguiente = nodo;
         temp.anterior = nodo;
-        longitud+;+
+        longitud++;
     }
 
 

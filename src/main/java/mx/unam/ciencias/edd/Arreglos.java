@@ -86,6 +86,13 @@ public class Arreglos {
         selectionSort(arreglo, (a, b) -> a.compareTo(b));
     }
 
+    public static <T> void intercambia(T[] arreglo, int a, int b) {
+        T aux = arreglo[a];
+
+        arreglo[a] = arreglo[b];
+        arreglo[b] = aux;
+    }
+
     /**
      * Hace una búsqueda binaria del elemento en el arreglo. Regresa el índice
      * del elemento en el arreglo, o -1 si no se encuentra.

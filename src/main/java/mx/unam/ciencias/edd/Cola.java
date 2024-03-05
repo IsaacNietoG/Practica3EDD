@@ -24,7 +24,7 @@ public class Cola<T> extends MeteSaca<T> {
      * @param elemento el elemento a agregar.
      * @throws IllegalArgumentException si <code>elemento</code> es
      *         <code>null</code>.
-     *//
+     */
 
     @Override public void mete(T elemento) {
         if(elemento==null)
