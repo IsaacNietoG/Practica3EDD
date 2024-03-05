@@ -18,7 +18,33 @@ public class Arreglos {
      */
     public static <T> void
     quickSort(T[] arreglo, Comparator<T> comparador) {
-        // Aquí va su código.
+        quickSortRecursivo(arreglo, 0, arreglo.length-1, comparador);
+    }
+
+    public static <T> void quickSortRecursivo(T[] arreglo, int ini, int fini, Comparator<T> comparador) {
+        if (fini <= ini) {
+            return;
+        }
+        int i = ini + 1;
+        int j = fini;
+        while (i < j) {
+            if ((comparador.compare(arreglo[i], arreglo[ini]) > 0)
+                    && comparador.compare(arreglo[j], arreglo[ini]) <= 0) {
+                intercambia(arreglo, i, j);
+                i++;
+                j--;
+            } else if (comparador.compare(arreglo[i], arreglo[ini]) <= 0) {
+                i++;
+            } else {
+                j--;
+            }
+        }
+        if (comparador.compare(arreglo[i], arreglo[ini]) > 0) {
+            i--;
+        }
+        intercambia(arreglo, ini, i);
+        quickSortRecursivo(arreglo, ini, i - 1, comparador);
+        quickSortRecursivo(arreglo, i + 1, fini, comparador);
     }
 
     /**
@@ -39,7 +65,15 @@ public class Arreglos {
      */
     public static <T> void
     selectionSort(T[] arreglo, Comparator<T> comparador) {
-        // Aquí va su código.
+        for(int i=0; i<arreglo.length-1; i++){
+            int menor = i;
+            for(int j=i+1; j<arreglo.length; j++){
+                if(comparador.compare(arreglo[j], arreglo[menor])<0){
+                    menor = j;
+                }
+            }
+            intercambia(arreglo, i, menor);
+        }
     }
 
     /**
@@ -63,7 +97,22 @@ public class Arreglos {
      */
     public static <T> int
     busquedaBinaria(T[] arreglo, T elemento, Comparator<T> comparador) {
-        // Aquí va su código.
+        return busquedaBinariaRecursiva(arreglo, elemento, 0, arreglo.length - 1, comparador);
+    }
+
+    public static <T> int busquedaBinariaRecursiva(T[] arreglo, T elemento, int ini, int fini,
+                                                   Comparator<T> comparador) {
+        if (fini < ini) {
+            return -1;
+        }
+        int medio = ((fini - ini) / 2) + ini;
+        if (comparador.compare(elemento, arreglo[medio]) == 0)
+            return medio;
+        else if (comparador.compare(elemento, arreglo[medio]) < 0) {
+            return busquedaBinariaRecursiva(arreglo, elemento, ini, medio - 1, comparador);
+        } else {
+            return busquedaBinariaRecursiva(arreglo, elemento, medio + 1, fini, comparador);
+        }
     }
 
     /**
