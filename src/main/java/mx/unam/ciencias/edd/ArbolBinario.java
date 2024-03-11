@@ -67,7 +67,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
          */
         @Override public VerticeArbolBinario<T> padre() {
             if(!hayPadre())
-                throw new NoSuchElementException();
+                throw new NoSuchElementException("No hay padre");
             return padre;
         }
 
@@ -78,7 +78,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
          */
         @Override public VerticeArbolBinario<T> izquierdo() {
             if(!hayIzquierdo())
-                throw new NoSuchElementException();
+                throw new NoSuchElementException("No hay izquierdo");
             return izquierdo;
         }
 
@@ -89,7 +89,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
          */
         @Override public VerticeArbolBinario<T> derecho() {
             if(!hayDerecho())
-                throw new NoSuchElementException();
+                throw new NoSuchElementException("No hay derecho");
             return derecho;
         }
 
@@ -113,7 +113,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
          * @return la profundidad del vértice.
          */
         @Override public int profundidad() {
-            return 1 + (hayPadre()? padre.profundidad() : 0);
+            return (hayPadre()? 1 + padre.profundidad() : 0);
         }
 
         /**
@@ -121,7 +121,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
          * @return el elemento al que apunta el vértice.
          */
         @Override public T get() {
-            return elemento;
+            return this.elemento;
         }
 
         /**
@@ -144,10 +144,12 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
                 return false;
             if(this.hayIzquierdo() != vertice.hayIzquierdo()) //Uno tiene izquierod y el otro no
                 return false;
-            if(!this.izquierdo.equals(vertice.izquierdo())) //El izquierdo no es igual al otro izquierdo
-                return false;
-            if(!this.derecho.equals(vertice.derecho())) //El derecho no es igual al otro derecho
-                return false;
+            if(this.hayIzquierdo() && vertice.hayIzquierdo())
+                if(!this.izquierdo.equals(vertice.izquierdo())) //El izquierdo no es igual al otro izquierdo
+                    return false;
+            if(this.hayDerecho() && vertice.hayDerecho())
+                if(!this.derecho.equals(vertice.derecho())) //El derecho no es igual al otro derecho
+                    return false;
             return true; //Todo fine
         }
 
@@ -240,10 +242,12 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
             return null;
         if(nodo.get().equals(elemento))
             return nodo;
-        if(busca(nodo.izquierdo(), elemento)!= null)
-            return nodo.izquierdo();
-        if(busca(nodo.derecho(), elemento) != null)
-            return nodo.derecho();
+        if(nodo.hayIzquierdo())
+            if(busca(nodo.izquierdo(), elemento)!= null)
+                return nodo.izquierdo();
+        if(nodo.hayDerecho())
+            if(busca(nodo.derecho(), elemento) != null)
+                return nodo.derecho();
         return null;
     }
 
@@ -284,6 +288,10 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
             return false;
         @SuppressWarnings("unchecked")
             ArbolBinario<T> arbol = (ArbolBinario<T>)objeto;
+        if(this.esVacia() && arbol.esVacia())
+            return true;
+        if(this.esVacia() != arbol.esVacia())
+            return false;
         return this.raiz.equals(arbol.raiz());
     }
 

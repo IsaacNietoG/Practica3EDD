@@ -60,7 +60,7 @@ public class Lista<T> implements Coleccion<T> {
             return tmp;
         }
 
-        public T peek(){
+        private T peek(){
             return siguiente.elemento;
         }
 
@@ -494,7 +494,7 @@ public class Lista<T> implements Coleccion<T> {
      * @return una copia de la lista recibida, pero ordenada.
      */
 
-    public Lista<T> mergeSortRecursivo(Lista<T> lista, Comparator<T> comparador){
+    private Lista<T> mergeSortRecursivo(Lista<T> lista, Comparator<T> comparador){
         if (lista.longitud <= 1)
             return lista;
         int longitud1=0;
@@ -521,7 +521,7 @@ public class Lista<T> implements Coleccion<T> {
         return lista.mergeSort((a, b) -> a.compareTo(b));
     }
 
-    public Lista<T> copiarRango(int ini, int fini) {
+    private Lista<T> copiarRango(int ini, int fini) {
         IteradorLista<T> copiador = this.iteradorLista();
         Lista<T> resultado = new Lista<>();
         // Colocamos el copiador en la posicion inicial
@@ -537,7 +537,7 @@ public class Lista<T> implements Coleccion<T> {
         return resultado;
     }
 
-    public Lista<T> mezcla(Lista<T> a, Lista<T> b, Comparator<T> comparador) {
+    private Lista<T> mezcla(Lista<T> a, Lista<T> b, Comparator<T> comparador) {
         Iterador iteradorA = (Iterador) a.iteradorLista();
         Iterador iteradorB = (Iterador) b.iteradorLista();
         Lista<T> resultado = new Lista<>();

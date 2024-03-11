@@ -110,6 +110,7 @@ public class TestArbolBinarioCompleto {
         for (int i = 0; i < total; i++) {
             int n = random.nextInt(100);
             arbol.agrega(n);
+            System.out.println(arbol);
             Assert.assertTrue(arbol.getElementos() == i+1);
             VerticeArbolBinario<Integer> it = arbol.busca(n);
             Assert.assertTrue(it != null);
