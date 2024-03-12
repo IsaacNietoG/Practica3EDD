@@ -63,26 +63,36 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
      *         <code>null</code>.
      */
     @Override public void agrega(T elemento) {
+        //El throws base
         if(elemento == null)
             throw new IllegalArgumentException();
-        if(raiz==null){
-            elementos = 1;
+        //Caso trivial
+        if(esVacia()){
+            this.elementos = 1;
             this.raiz = nuevoVertice(elemento);
             return;
-        }
-        Vertice nuevo = nuevoVertice(elemento);
 
+        }
+        //Ahora si, la chamba
+        Vertice nuevo = nuevoVertice(elemento);
         int coordenada = elementos+1;
         Vertice vertice = raiz;
-        coordenada = coordenada >> 1;
-        for(int i = 0; i<altura()-1; i++){
-            if((coordenada & 1)== 0)
-                vertice = (Vertice)vertice.izquierdo();
-            else
-                vertice = (Vertice)vertice.derecho();
 
+        int[] coordenadaBinaria = new int[32];
+        int i;
+        for(i = 0; coordenada > 0 ; i++){
+            coordenadaBinaria[i] = coordenada & 1;
+            coordenada >>= 1;
         }
 
+        for(int j = i-2; j> 0; j--){
+            if(coordenadaBinaria[j] == 0){
+                vertice = (Vertice)vertice.izquierdo();
+            }
+            else{
+                vertice = (Vertice)vertice.derecho();
+            }
+        }
         nuevo.padre = vertice;
         if(!vertice.hayIzquierdo())
             vertice.izquierdo = nuevo;
@@ -111,7 +121,11 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
                 queue.mete(vertice(target.derecho()));
         }
         target.elemento = ultimo.elemento;
-        ultimo = null;
+        Vertice ultimoPadre = ultimo.padre;
+        if(ultimoPadre.derecho.equals(ultimo))
+            ultimoPadre.derecho = null;
+        else
+            ultimoPadre.izquierdo = null;
         elementos--;
     }
 
@@ -121,6 +135,8 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
      * @return la altura del árbol.
      */
     @Override public int altura() {
+        if(esVacia())
+            return -1;
         return (int)(Math.log(elementos)/Math.log(2));
     }
 

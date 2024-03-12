@@ -237,18 +237,17 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
         return busca(raiz, elemento);
     }
 
-    public VerticeArbolBinario<T> busca(VerticeArbolBinario<T> nodo, T elemento) {
+    public VerticeArbolBinario<T> busca(Vertice nodo, T elemento) {
         if(nodo == null)
             return null;
         if(nodo.get().equals(elemento))
             return nodo;
-        if(nodo.hayIzquierdo())
-            if(busca(nodo.izquierdo(), elemento)!= null)
-                return nodo.izquierdo();
-        if(nodo.hayDerecho())
-            if(busca(nodo.derecho(), elemento) != null)
-                return nodo.derecho();
-        return null;
+        VerticeArbolBinario<T> izquierdo= busca(nodo.izquierdo,elemento);
+        VerticeArbolBinario<T> derecho= busca(nodo.derecho,elemento);
+
+        if(izquierdo != null)
+            return izquierdo;
+        return derecho;
     }
 
     /**
