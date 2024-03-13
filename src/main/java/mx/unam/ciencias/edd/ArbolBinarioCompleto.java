@@ -37,6 +37,15 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
                 cola.mete((Vertice)actual.derecho());
             return actual.get();
         }
+
+        private Vertice nextNodo(){
+            Vertice actual = cola.saca();
+            if(actual.hayIzquierdo())
+                cola.mete((Vertice)actual.izquierdo());
+            if(actual.hayDerecho())
+                cola.mete((Vertice)actual.derecho());
+            return actual;
+        }
     }
 
     /**
@@ -109,21 +118,24 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
      * @param elemento el elemento a eliminar.
      */
     @Override public void elimina(T elemento) {
+        if(elementos == 1 && raiz.elemento.equals(elemento)){
+            limpia();
+            return;
+        }
+        if(elementos == 1 && !raiz.get().equals(elemento))
+            return;
         Vertice target = vertice(busca(elemento));
-        Cola<Vertice> queue = new Cola<>();
-        Vertice ultimo= raiz;
-        queue.mete(ultimo);
-        while(!queue.esVacia()){
-            ultimo = queue.saca();
-            if(target.hayIzquierdo())
-                queue.mete(vertice(target.izquierdo()));
-            if(target.hayDerecho())
-                queue.mete(vertice(target.derecho()));
+        Iterador iterador = (Iterador)this.iterator();
+        Vertice ultimo=raiz;
+        while(iterador.hasNext()){
+            ultimo = iterador.nextNodo();
         }
         target.elemento = ultimo.elemento;
         Vertice ultimoPadre = ultimo.padre;
-        if(ultimoPadre.derecho.equals(ultimo))
-            ultimoPadre.derecho = null;
+        if(ultimoPadre.hayDerecho()){
+            if(ultimoPadre.derecho.equals(ultimo))
+                ultimoPadre.derecho = null;
+        }
         else
             ultimoPadre.izquierdo = null;
         elementos--;

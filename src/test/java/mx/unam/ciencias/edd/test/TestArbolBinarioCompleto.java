@@ -307,6 +307,10 @@ public class TestArbolBinarioCompleto {
         arbol = new ArbolBinarioCompleto<Integer>();
         for (int i = 1; i <= 5; i++)
             arbol.agrega(i);
+        System.out.println("Mi metodo: ");
+        System.out.println(arbol);
+        System.out.println("Expectativa");
+        System.out.println(cadena);
         Assert.assertTrue(arbol.toString().equals(cadena));
     }
 

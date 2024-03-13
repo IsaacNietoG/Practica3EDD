@@ -256,6 +256,8 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
      * @throws NoSuchElementException si el árbol es vacío.
      */
     public VerticeArbolBinario<T> raiz() {
+        if(raiz == null)
+            throw new NoSuchElementException();
         return raiz;
     }
 
@@ -338,7 +340,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
         String s = "";
         for(int i = 0; i<l; i++){
             if(array[i] == 1)
-                s += "|  ";
+                s += "│  ";
             else
                 s += "   ";
         }
