@@ -237,7 +237,7 @@ public abstract class ArbolBinario<T> implements Coleccion<T> {
         return busca(raiz, elemento);
     }
 
-    public VerticeArbolBinario<T> busca(Vertice nodo, T elemento) {
+    private VerticeArbolBinario<T> busca(Vertice nodo, T elemento) {
         if(nodo == null)
             return null;
         if(nodo.get().equals(elemento))
