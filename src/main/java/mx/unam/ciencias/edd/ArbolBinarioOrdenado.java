@@ -198,9 +198,10 @@ public class ArbolBinarioOrdenado<T extends Comparable<T>>
         }
         if(target.get().compareTo(elemento) == 0)
             return target;
-        if(elemento.compareTo(elemento)< 0)
+        if(elemento.compareTo(target.get())< 0)
             return busca(target.izquierdo, elemento);
-        return busca(target.derecho , elemento);
+        else
+            return busca(target.derecho , elemento);
 
     }
 
