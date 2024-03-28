@@ -127,11 +127,9 @@ public class ArbolBinarioOrdenado<T extends Comparable<T>>
 
         Vertice eliminar = vertice(busca(elemento));
         if(eliminar.hayDerecho()&& eliminar.hayIzquierdo()){
-            System.out.println("ELIMINAR : Dos hijos");
             Vertice intercambiar = intercambiaEliminable(eliminar);
             eliminaVertice(intercambiar);
         }else{
-            System.out.println("ELIMINAR : Un hijo o -");
             eliminaVertice(eliminar);
         }
         elementos--;
@@ -262,6 +260,7 @@ public class ArbolBinarioOrdenado<T extends Comparable<T>>
 
         Vertice nuevoPadre = vertice(vertice.derecho());
         Vertice casteado = vertice(vertice);
+        casteado.derecho = nuevoPadre.izquierdo;
 
         if(nuevoPadre.hayIzquierdo())
             nuevoPadre.izquierdo.padre = casteado;
